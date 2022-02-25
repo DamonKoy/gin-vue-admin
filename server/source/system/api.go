@@ -119,6 +119,9 @@ func (a *api) Initialize() error {
 		{ApiGroup: "excel", Method: "GET", Path: "/excel/loadExcel", Description: "下载excel"},
 		{ApiGroup: "excel", Method: "POST", Path: "/excel/exportExcel", Description: "导出excel"},
 		{ApiGroup: "excel", Method: "GET", Path: "/excel/downloadTemplate", Description: "下载excel模板"},
+
+		{ApiGroup: "device", Method: "GET", Path: "/device/getDeviceList", Description: "获取手机设备列表"},
+		{ApiGroup: "device", Method: "POST", Path: "/device/updateDeviceHolder", Description: "更新手机设备持有人"},
 	}
 	if err := global.GVA_DB.Create(&entities).Error; err != nil {
 		return errors.Wrap(err, a.TableName()+"表数据初始化失败!")
