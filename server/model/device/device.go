@@ -18,9 +18,9 @@ type Device struct {
 	Auditor       string    `json:"auditor" gorm:"comment:管理人"`
 	Holder        string    `json:"holder" gorm:"default:#fff;comment:持有人"`
 	Status        string    `json:"status" gorm:"comment:状态"`
-	Remarks       string    `json:"remarks" gorm:"comment:备注"`
 	CreateTime    time.Time `json:"create_time" gorm:"comment:创建时间"`
 	UpdateTime    time.Time `json:"update_time" gorm:"comment:更新时间"`
+	Remarks       string    `json:"remarks" gorm:"comment:备注"`
 }
 
 // 返回数据库表名
