@@ -24,15 +24,9 @@ func (deviceService *DeviceService) GetDeviceList(info deviceReq.GetDeviceList) 
 	return err, deviceList, total
 }
 
-//func (deviceService *DeviceService) updateDeviceHolder(info request.holder) (err error, list interface{}, total int64) {
-//	limit := info.PageSize
-//	offset := info.PageSize * (info.Page - 1)
-//	db := global.GVA_DB.Model(&device.Device{})
-//	var deviceList []device.Device
-//	err = db.Count(&total).Error
-//	if err != nil {
-//		return
-//	}
-//	err = db.Limit(limit).Offset(offset).Preload("Device").Preload("Device").Find(&deviceList).Error
-//	return err, deviceList, total
-//}
+func (deviceService *DeviceService) UpdateDeviceHolder(info deviceReq.UpdateDeviceHolder) (err error) {
+	db := global.GVA_DB.Model(&device.Device{})
+	var device []device.Device
+	err = db.Where("id = ? and holder = ?", info.Id, info.Holder).First(&device).Update("holder", info.CurrentHolder).Error
+	return err
+}
