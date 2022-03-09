@@ -10,13 +10,13 @@
       <el-table-column align="left" prop="auditor" label="管理人" />
       <el-table-column align="left" prop="holder" label="持有人" />
       <el-table-column align="left" prop="status" label="状态" />
-      <el-table-column align="left" prop="update_time" label="更新时间" />
+      <el-table-column align="left" prop="updated_at" label="更新时间" />
       <el-table-column align="left" prop="remarks" label="备注" />
 
       <!-- 更新按钮 -->
       <el-table-column fixed="right" label="操作" width="120">
         <template #default="scope">
-          <el-button icon="edit" size="small" @click="openEdit(scope.row)">借出</el-button>
+          <el-button icon="edit" size="small" @click="openEdit(scope.row)">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -49,8 +49,8 @@
           <el-form-item label="借入人" prop="currentHolder">
             <el-input v-model="deviceInfo.currentHolder" placeholder="必填,请输入借入人名字" />
           </el-form-item>
-          <el-form-item label="备注" prop="remarks">
-            <el-input v-model="deviceInfo.remarks" placeholder="非必填,可按需输入信息进行记录" />
+          <el-form-item label="内容记录" prop="remarks">
+            <el-input v-model="deviceInfo.describe" placeholder="非必填,可按需输入信息进行记录" />
           </el-form-item>
         </el-form>
       </div>
@@ -106,7 +106,7 @@ const deviceInfo = ref({
   id: '',
   holder: '',
   currentHolder: '',
-  remarks: '',
+  describe: '',
 })
 
 // 判断弹窗类型
@@ -134,7 +134,7 @@ const closeEditDeviceDialog = () => {
   deviceForm.value.resetFields()
   deviceInfo.value.holder = ''
   deviceInfo.value.currentHolder = ''
-  deviceInfo.value.remarks = ''
+  deviceInfo.value.describe = ''
   editDeviceDialog.value = false
 }
 

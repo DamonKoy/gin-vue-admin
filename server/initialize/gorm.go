@@ -56,6 +56,7 @@ func RegisterTables(db *gorm.DB) {
 
 		// 手机设备模块表
 		device.Device{},
+		device.DeviceRecord{},
 	)
 	if err != nil {
 		global.GVA_LOG.Error("register table failed", zap.Error(err))

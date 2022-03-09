@@ -25,8 +25,17 @@ func (deviceService *DeviceService) GetDeviceList(info deviceReq.GetDeviceList) 
 }
 
 func (deviceService *DeviceService) UpdateDeviceHolder(info deviceReq.UpdateDeviceHolder) (err error) {
-	db := global.GVA_DB.Model(&device.Device{})
-	var device []device.Device
-	err = db.Where("id = ? and holder = ?", info.Id, info.Holder).First(&device).Update("holder", info.CurrentHolder).Error
-	return err
+	// 更新device表的holder值
+	deviceDb := global.GVA_DB.Model(&device.Device{})
+	var deviceTable []device.Device
+	err = deviceDb.Where("id = ? and holder = ?", info.Id, info.Holder).First(&deviceTable).Update("Holder", info.CurrentHolder).Error
+	if err != nil {
+		return err
+	} else {
+		// 在device_transfer_record表新增一条记录
+		deviceRecordDb := global.GVA_DB.Model(&device.DeviceRecord{})
+		record := deviceReq.DeviceRecord{DeviceId: info.Id, OriginalHolder: info.Holder, CurrentHolder: info.CurrentHolder, Describe: info.Describe}
+		err = deviceRecordDb.Create(&record).Error
+		return err
+	}
 }
